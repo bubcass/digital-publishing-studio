@@ -33,6 +33,10 @@ import { downloadFile } from "./utils/download.js";
 import { mdToHtml, looksLikeMarkdown } from "./utils/markdown.js";
 import { savePreviewArticle } from "../preview-storage.ts";
 
+const PUBLISHER_DRAFT_KEY = "oireachtas-publishing-studio/publisher-draft";
+const INITIAL_EDITOR_CONTENT =
+  "<p>This is the <strong>Oireachtas Digital Publishing Studio</strong> prototype.</p><p>Set publication details, structure the article in the editor, live preview and publishing of Oireachtas research, information and committee reports.</p>";
+
 const ARTICLE_TYPE_OPTIONS = {
   stor: [
     { value: "research-article", label: "Research article" },
@@ -271,6 +275,69 @@ function getSelectedStructuredBlock(editor) {
   return null;
 }
 
+function createInitialMetadata(initialSlug, initialDatePublished) {
+  return MetadataSchema.parse({
+    storId: initialSlug,
+    slug: initialSlug,
+    destination: "",
+    contentType: "",
+    title: "",
+    dek: "",
+    section: "",
+    theme: "",
+    topics: [],
+    layout: "standard",
+    language: "en",
+    status: "draft",
+    version: "0.1",
+    keywords: ["prototype"],
+    datePublished: initialDatePublished,
+    hero: {
+      src: "",
+      alt: "",
+      caption: "",
+      credit: "",
+    },
+    unit: {
+      unitCode: "COMMS",
+      unit: unitFromCode("COMMS"),
+    },
+    contributors: [
+      {
+        given: "",
+        family: "",
+        role: "author",
+        affiliation: {
+          unitCode: "COMMS",
+          unit: unitFromCode("COMMS"),
+        },
+        showAsAuthor: true,
+      },
+    ],
+  });
+}
+
+function readPublisherDraft() {
+  if (typeof window === "undefined") return null;
+
+  try {
+    const raw = window.localStorage.getItem(PUBLISHER_DRAFT_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function writePublisherDraft(payload) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(PUBLISHER_DRAFT_KEY, JSON.stringify(payload));
+}
+
+function clearPublisherDraft() {
+  if (typeof window === "undefined") return;
+  window.localStorage.removeItem(PUBLISHER_DRAFT_KEY);
+}
+
 export default function App({ appBase = "" }) {
   const initialDatePublished = todayIsoDate();
   const initialSlug = buildDocumentSlug(
@@ -308,50 +375,11 @@ export default function App({ appBase = "" }) {
 
   const editor = useEditor({
     extensions,
-    content:
-      "<p>This is the <strong>Oireachtas Digital Publishing Studio</strong> prototype.</p><p>Set publication details, structure the article in the editor, live preview and publishing of Oireachtas research, information and committee reports.</p>",
+    content: INITIAL_EDITOR_CONTENT,
   });
 
   const [metadata, setMetadata] = useState(
-    MetadataSchema.parse({
-      storId: initialSlug,
-      slug: initialSlug,
-      destination: "",
-      contentType: "",
-      title: "",
-      dek: "",
-      section: "",
-      theme: "",
-      topics: [],
-      layout: "standard",
-      language: "en",
-      status: "draft",
-      version: "0.1",
-      keywords: ["prototype"],
-      datePublished: initialDatePublished,
-      hero: {
-        src: "",
-        alt: "",
-        caption: "",
-        credit: "",
-      },
-      unit: {
-        unitCode: "COMMS",
-        unit: unitFromCode("COMMS"),
-      },
-      contributors: [
-        {
-          given: "",
-          family: "",
-          role: "author",
-          affiliation: {
-            unitCode: "COMMS",
-            unit: unitFromCode("COMMS"),
-          },
-          showAsAuthor: true,
-        },
-      ],
-    }),
+    createInitialMetadata(initialSlug, initialDatePublished),
   );
 
   const validation = useMemo(() => validateMetadata(metadata), [metadata]);
@@ -362,6 +390,10 @@ export default function App({ appBase = "" }) {
   const [slugLocked, setSlugLocked] = useState(true);
   const [publishMessage, setPublishMessage] = useState(null);
   const fileInputRef = useRef(null);
+  const hasHydratedDraft = useRef(false);
+  const initialMetadataRef = useRef(
+    createInitialMetadata(initialSlug, initialDatePublished),
+  );
 
   const applyMetadataUpdate = (nextValue) => {
     setMetadata((current) => {
@@ -442,6 +474,85 @@ export default function App({ appBase = "" }) {
 
   const buildStorDocument = () =>
     editor ? pmToStorDocument(editor.getJSON(), metadata) : null;
+
+  const handleClearDraft = () => {
+    clearPublisherDraft();
+    setMetadata(initialMetadataRef.current);
+    setInputMode("editor");
+    setOpenStage("start");
+    setSlugLocked(true);
+    setSelectedStructuredBlock(null);
+    setPublishMessage({
+      type: "success",
+      text: "Saved browser draft cleared. The publisher has been reset.",
+    });
+    editor?.commands.setContent(INITIAL_EDITOR_CONTENT, true);
+  };
+
+  useEffect(() => {
+    if (!editor || hasHydratedDraft.current) return;
+
+    const draft = readPublisherDraft();
+    const defaultMetadata = createInitialMetadata(initialSlug, initialDatePublished);
+
+    if (draft) {
+      const nextMetadata = MetadataSchema.parse({
+        ...defaultMetadata,
+        ...(draft.metadata || {}),
+      });
+
+      setMetadata(nextMetadata);
+      setInputMode(
+        draft.inputMode === "upload" || draft.inputMode === "editor"
+          ? draft.inputMode
+          : "editor",
+      );
+      setOpenStage(
+        ["start", "details", "edit", "preview"].includes(draft.openStage)
+          ? draft.openStage
+          : "start",
+      );
+      setSlugLocked(
+        typeof draft.slugLocked === "boolean" ? draft.slugLocked : true,
+      );
+
+      if (draft.editorJson) {
+        editor.commands.setContent(draft.editorJson, true);
+      }
+    }
+
+    hasHydratedDraft.current = true;
+  }, [editor, initialDatePublished, initialSlug]);
+
+  useEffect(() => {
+    if (!editor || !hasHydratedDraft.current) return undefined;
+
+    const persistDraft = () => {
+      writePublisherDraft({
+        metadata,
+        inputMode,
+        openStage,
+        slugLocked,
+        editorJson: editor.getJSON(),
+        updatedAt: new Date().toISOString(),
+      });
+    };
+
+    persistDraft();
+
+    let timeoutId;
+    const handleUpdate = () => {
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(persistDraft, 200);
+    };
+
+    editor.on("update", handleUpdate);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      editor.off("update", handleUpdate);
+    };
+  }, [editor, inputMode, metadata, openStage, slugLocked]);
 
   const handleExportHTML = () => {
     if (!editor) return;
@@ -1010,6 +1121,9 @@ export default function App({ appBase = "" }) {
 
                 <div className="actions actions--secondary">
                   <div className="actions-right">
+                    <button type="button" onClick={handleClearDraft}>
+                      Clear draft
+                    </button>
                     <button type="button" onClick={handleExportHTML}>
                       Export HTML
                     </button>
