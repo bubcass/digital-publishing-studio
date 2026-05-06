@@ -388,6 +388,7 @@ export default function App({ appBase = "" }) {
   const [selectedStructuredBlock, setSelectedStructuredBlock] = useState(null);
   const [openStage, setOpenStage] = useState("start");
   const [slugLocked, setSlugLocked] = useState(true);
+  const [workflowMessage, setWorkflowMessage] = useState(null);
   const [publishMessage, setPublishMessage] = useState(null);
   const fileInputRef = useRef(null);
   const hasHydratedDraft = useRef(false);
@@ -482,10 +483,11 @@ export default function App({ appBase = "" }) {
     setOpenStage("start");
     setSlugLocked(true);
     setSelectedStructuredBlock(null);
-    setPublishMessage({
+    setWorkflowMessage({
       type: "success",
       text: "Saved browser draft cleared. The publisher has been reset.",
     });
+    setPublishMessage(null);
     editor?.commands.setContent(INITIAL_EDITOR_CONTENT, true);
   };
 
@@ -723,6 +725,10 @@ export default function App({ appBase = "" }) {
         unit,
         contributors: mergedContribs,
       });
+      setWorkflowMessage({
+        type: "success",
+        text: `Imported ${file.name}. Review the publication details before previewing.`,
+      });
     } catch (err) {
       console.error(err);
       window.alert(`Failed to import .docx: ${err?.message || String(err)}`);
@@ -879,7 +885,20 @@ export default function App({ appBase = "" }) {
         ))}
       </nav>
 
-      <MetadataStatus report={validation} metadata={metadata} />
+      {openStage !== "start" && (
+        <MetadataStatus report={validation} metadata={metadata} />
+      )}
+      {workflowMessage && (
+        <div
+          className={
+            workflowMessage.type === "error"
+              ? "publish-message error"
+              : "publish-message success"
+          }
+        >
+          <strong>{workflowMessage.text}</strong>
+        </div>
+      )}
 
       <section className="stage-section wizard-panel">
         <header className="stage-heading">
