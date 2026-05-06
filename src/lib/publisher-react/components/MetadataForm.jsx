@@ -216,10 +216,17 @@ export default function MetadataForm({
     <fieldset className="metadata-form">
       <legend>Primary details</legend>
 
-      <div className="metadata-form__status-picker" aria-label="Document status">
+      <div
+        className="metadata-form__status-picker"
+        aria-label="Document status"
+      >
         <div>
           <span className="metadata-form__status-label">Document status</span>
-          <div className="metadata-form__status-options" role="radiogroup" aria-label="Document status options">
+          <div
+            className="metadata-form__status-options"
+            role="radiogroup"
+            aria-label="Document status options"
+          >
             {STATUS_OPTIONS.map((option) => (
               <button
                 key={option.value}
@@ -318,7 +325,9 @@ export default function MetadataForm({
               }}
               disabled={!destination}
             >
-              {!destination && <option value="">Choose destination first…</option>}
+              {!destination && (
+                <option value="">Choose destination first…</option>
+              )}
               {sectionOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -328,14 +337,13 @@ export default function MetadataForm({
             </select>
           </label>
         )}
-
       </div>
 
       {!isCommitteeReport && sectionChoice === CUSTOM_SECTION_VALUE && (
         <label className="metadata-form__field">
           <span>Custom series</span>
           <input
-            placeholder="Custom series label"
+            placeholder="Optional custom series label if required"
             value={effectiveSection}
             onChange={(e) => set({ section: e.target.value })}
           />
@@ -345,7 +353,7 @@ export default function MetadataForm({
       <label className="metadata-form__field">
         <span>Title</span>
         <input
-          placeholder="Title"
+          placeholder="Mandatory title"
           value={meta.title || ""}
           onChange={(e) => set({ title: e.target.value })}
         />
@@ -355,7 +363,7 @@ export default function MetadataForm({
         <span>Strapline</span>
         <textarea
           rows={3}
-          placeholder="Short summary shown below the title used as a short overview or introduction"
+          placeholder="Optional short summary shown below the title used as a short overview or introduction"
           value={meta.dek || ""}
           onChange={(e) => set({ dek: e.target.value })}
         />
@@ -411,7 +419,7 @@ export default function MetadataForm({
             <label className="metadata-form__field">
               <span>Hero media path</span>
               <input
-                placeholder="/media/full_chamber.jpg or /media/coin.mp4"
+                placeholder="/static/media/full_chamber.jpg or static/media/coin.mp4"
                 value={meta.hero?.src || ""}
                 onChange={(e) =>
                   set({ hero: { ...(meta.hero || {}), src: e.target.value } })
@@ -433,7 +441,7 @@ export default function MetadataForm({
             <label className="metadata-form__field">
               <span>Hero poster image</span>
               <input
-                placeholder="/media/full_chamber.jpg"
+                placeholder="/static/media/full_chamber.jpg"
                 value={meta.hero?.poster || ""}
                 onChange={(e) =>
                   set({

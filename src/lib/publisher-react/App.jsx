@@ -309,7 +309,7 @@ export default function App({ appBase = "" }) {
   const editor = useEditor({
     extensions,
     content:
-      "<p>Welcome to the <strong>Stór Publisher</strong> prototype.</p><p>Set publication details, structure the article in TipTap, and send the result straight to the SvelteKit renderer.</p>",
+      "<p>This is the <strong>Oireachtas Digital Publishing Studio</strong> prototype.</p><p>Set publication details, structure the article in the editor, live preview and publishing of Oireachtas research, information and committee reports.</p>",
   });
 
   const [metadata, setMetadata] = useState(
@@ -885,10 +885,9 @@ export default function App({ appBase = "" }) {
           <div className="stage-body">
             <section className="editor-context">
               <p>
-                Use the toolbar for headings, lists, links, and basic
-                formatting. Use <strong>Add → Full-width image</strong> to test
-                how media sits in the body copy, then refine the path, alt text,
-                and layout in the inspector.
+                Use the toolbar to adjust headings, lists, links and basic
+                formatting. Use <strong>Add → Full-width image</strong> for
+                media, charts and interactives [**NOT WORKING TOO WELL ATM**].
               </p>
             </section>
             <div
@@ -957,8 +956,8 @@ export default function App({ appBase = "" }) {
               <div className="publish-panel__copy">
                 <strong>Preview or publish</strong>
                 <span>
-                  Save the current Stór JSON to browser storage, open the
-                  rendered preview, or export the publishable JSON artifact.
+                  Save the current Sveltekit JSON to browser storage, open the
+                  rendered preview or export the publishable JSON artefact.
                 </span>
               </div>
               <div className="publish-panel__actions publish-panel__actions--split">
@@ -1039,7 +1038,7 @@ export default function App({ appBase = "" }) {
                   </div>
                 </div>
 
-                <Accordion title="Live Stór JSON preview" defaultOpen={true}>
+                <Accordion title="Live preview" defaultOpen={true}>
                   <pre>{storPreview}</pre>
                 </Accordion>
                 <Accordion title="ProseMirror JSON" defaultOpen={false}>
