@@ -1,0 +1,40 @@
+name,votes,allocation,count,status,URI,party,election_year,quota,surname
+John McGuinness,21,0,1,Continuing,John-McGuinness.D.1997-06-26,Fianna Fáil,2024,87,McGuinness
+Seán Ó Fearghaíl,27,0,1,Continuing,Seán-Ó-Fearghaíl.S.2000-06-09,Fianna Fáil,2024,87,Ó Fearghaíl
+Verona Murphy,76,0,1,Continuing,Verona-Murphy.D.2020-02-08,Independent,2024,87,Murphy
+Aengus Ó Snodaigh,48,0,1,Continuing,Aengus-Ó-Snodaigh.D.2002-06-06,Sinn Féin,2024,87,Ó Snodaigh
+John McGuinness,0,0,2,Eliminated,John-McGuinness.D.1997-06-26,Fianna Fáil,2024,87,McGuinness
+Seán Ó Fearghaíl,42,15,2,Continuing,Seán-Ó-Fearghaíl.S.2000-06-09,Fianna Fáil,2024,87,Ó Fearghaíl
+Verona Murphy,76,0,2,Continuing,Verona-Murphy.D.2020-02-08,Independent,2024,87,Murphy
+Aengus Ó Snodaigh,54,6,2,Continuing,Aengus-Ó-Snodaigh.D.2002-06-06,Sinn Féin,2024,87,Ó Snodaigh
+John McGuinness,0,0,3,Eliminated,John-McGuinness.D.1997-06-26,Fianna Fáil,2024,87,McGuinness
+Seán Ó Fearghaíl,0,0,3,Eliminated,Seán-Ó-Fearghaíl.S.2000-06-09,Fianna Fáil,2024,87,Ó Fearghaíl
+Verona Murphy,89,13,3,Elected,Verona-Murphy.D.2020-02-08,Independent,2024,87,Murphy
+Aengus Ó Snodaigh,67,13,3,Continuing,Aengus-Ó-Snodaigh.D.2002-06-06,Sinn Féin,2024,87,Ó Snodaigh
+Seán Ó Fearghaíl,130,0,1,Elected,Seán-Ó-Fearghaíl.S.2000-06-09,Fianna Fáil,2020,80,Ó Fearghaíl
+Denis Naughten,28,0,1,Continuing,Denis-Naughten.S.1997-01-28,Independent,2020,80,Naughten
+Seán Ó Fearghaíl,56,0,1,Continuing,Seán-Ó-Fearghaíl.S.2000-06-09,Fianna Fáil,2016,79,Ó Fearghaíl
+Andrew Doyle,32,0,1,Continuing,Andrew-Doyle.D.2007-06-14,Fine Gael,2016,79,Doyle
+Maureen O'Sullivan,24,0,1,Continuing,Maureen-O%27Sullivan.D.2009-06-05,Independent,2016,79,O'Sullivan
+Caoimhghín Ó Caoláin,24,0,1,Continuing,Caoimhghín-Ó-Caoláin.D.1997-06-26,Sinn Féin,2016,79,Ó Caoláin
+Bernard Durkan,21,0,1,Continuing,Bernard-Durkan.D.1981-06-30,Fine Gael,2016,79,Durkan
+Seán Ó Fearghaíl,60,4,2,Continuing,Seán-Ó-Fearghaíl.S.2000-06-09,Fianna Fáil,2016,79,Ó Fearghaíl
+Andrew Doyle,48,16,2,Continuing,Andrew-Doyle.D.2007-06-14,Fine Gael,2016,79,Doyle
+Maureen O'Sullivan,25,1,2,Continuing,Maureen-O%27Sullivan.D.2009-06-05,Independent,2016,79,O'Sullivan
+Caoimhghín Ó Caoláin,24,0,2,Continuing,Caoimhghín-Ó-Caoláin.D.1997-06-26,Sinn Féin,2016,79,Ó Caoláin
+Bernard Durkan,0,0,2,Eliminated,Bernard-Durkan.D.1981-06-30,Fine Gael,2016,79,Durkan
+Seán Ó Fearghaíl,61,1,3,Continuing,Seán-Ó-Fearghaíl.S.2000-06-09,Fianna Fáil,2016,79,Ó Fearghaíl
+Andrew Doyle,48,0,3,Continuing,Andrew-Doyle.D.2007-06-14,Fine Gael,2016,79,Doyle
+Maureen O'Sullivan,42,17,3,Continuing,Maureen-O%27Sullivan.D.2009-06-05,Independent,2016,79,O'Sullivan
+Caoimhghín Ó Caoláin,0,0,3,Eliminated,Caoimhghín-Ó-Caoláin.D.1997-06-26,Sinn Féin,2016,79,Ó Caoláin
+Bernard Durkan,0,0,3,Eliminated,Bernard-Durkan.D.1981-06-30,Fine Gael,2016,79,Durkan
+Seán Ó Fearghaíl,74,13,4,Continuing,Seán-Ó-Fearghaíl.S.2000-06-09,Fianna Fáil,2016,79,Ó Fearghaíl
+Andrew Doyle,58,16,4,Continuing,Andrew-Doyle.D.2007-06-14,Fine Gael,2016,79,Doyle
+Maureen O'Sullivan,0,0,4,Eliminated,Maureen-O%27Sullivan.D.2009-06-05,Independent,2016,79,O'Sullivan
+Caoimhghín Ó Caoláin,0,0,4,Eliminated,Caoimhghín-Ó-Caoláin.D.1997-06-26,Sinn Féin,2016,79,Ó Caoláin
+Bernard Durkan,0,0,4,Eliminated,Bernard-Durkan.D.1981-06-30,Fine Gael,2016,79,Durkan
+Seán Ó Fearghaíl,95,19,5,Elected,Seán-Ó-Fearghaíl.S.2000-06-09,Fianna Fáil,2016,79,Ó Fearghaíl
+Andrew Doyle,0,0,5,Eliminated,Andrew-Doyle.D.2007-06-14,Fine Gael,2016,79,Doyle
+Maureen O'Sullivan,0,0,5,Eliminated,Maureen-O%27Sullivan.D.2009-06-05,Independent,2016,79,O'Sullivan
+Caoimhghín Ó Caoláin,0,0,5,Eliminated,Caoimhghín-Ó-Caoláin.D.1997-06-26,Sinn Féin,2016,79,Ó Caoláin
+Bernard Durkan,0,0,5,Eliminated,Bernard-Durkan.D.1981-06-30,Fine Gael,2016,79,Durkan

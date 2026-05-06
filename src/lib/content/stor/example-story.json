@@ -1,0 +1,88 @@
+{
+  "id": "example-story",
+  "slug": "example-story",
+  "type": "parliament-explained",
+  "destination": "inside-parliament",
+  "title": "How a Stór publishing flow can lead into Inside Parliament",
+  "dek": "A richer sample article showing how authoring metadata, structured blocks and renderer intent can travel through the current prototype.",
+  "section": "Parliament Essentials",
+  "topics": ["Seanad", "Voting"],
+  "layout": "immersive",
+  "status": "draft",
+  "hero": {
+    "src": "/media/full_chamber.png",
+    "alt": "A wide view of the chamber prepared for parliamentary business.",
+    "caption": "Existing media assets can be referenced directly from the SvelteKit static folder.",
+    "credit": "Houses of the Oireachtas"
+  },
+  "contributors": [
+    {
+      "name": "Library & Research Service",
+      "role": "author",
+      "affiliation": "Houses of the Oireachtas",
+      "showAsAuthor": true
+    },
+    {
+      "name": "Inside Parliament Team",
+      "role": "editor",
+      "affiliation": "Inside Parliament",
+      "showAsAuthor": false
+    }
+  ],
+  "publishedDate": "2026-05-05",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "A shared publishing contract"
+    },
+    {
+      "type": "paragraph",
+      "text": "This sample demonstrates the current contract between the TipTap-based publisher and the SvelteKit renderer. The body uses a small set of block types, while the top-level metadata describes where the article is intended to appear."
+    },
+    {
+      "type": "callout",
+      "style": "key-point",
+      "title": "Key point",
+      "text": "The contract stays small on purpose: enough to drive a believable publishing workflow, without over-committing to a production CMS model."
+    },
+    {
+      "type": "paragraph",
+      "text": "A future iteration could replace the temporary parsing conventions with explicit editor tools for callouts, charts, references and data resources, but the export shape would remain recognisable."
+    },
+    {
+      "type": "image",
+      "image": {
+        "src": "/media/deputy_bacik.jpg",
+        "alt": "Deputy Ivana Bacik speaking in Dáil Éireann",
+        "caption": "Body images can also point at existing /media assets.",
+        "credit": "Houses of the Oireachtas"
+      },
+      "layout": "wide"
+    },
+    {
+      "type": "quote",
+      "text": "A useful proof of concept is one where the handoff between systems becomes boring and predictable.",
+      "attribution": "Prototype design note"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Renderer-oriented placeholders"
+    },
+    {
+      "type": "paragraph",
+      "text": "The chart block below is still only a placeholder. It exists to show where a renderer-specific component could be selected later without changing the authoring workflow."
+    },
+    {
+      "type": "chart",
+      "title": "Illustrative chart placeholder",
+      "component": "exampleChart",
+      "data": "/data/example-chart.json"
+    },
+    {
+      "type": "paragraph",
+      "text": "In the current prototype, sending JSON directly to a preview route is enough to prove the contract. The more important refinement is that the renderer now treats theme, byline, date and reading time the way the Inside Parliament pages already do."
+    }
+  ]
+}

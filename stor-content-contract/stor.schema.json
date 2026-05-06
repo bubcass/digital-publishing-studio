@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/stor-content-contract/stor.schema.json",
+  "title": "Stor Article",
+  "type": "object",
+  "required": ["slug", "title", "blocks"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "destination": {
+      "type": "string",
+      "enum": ["stor", "inside-parliament", "committee-reports"]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dek": {
+      "type": "string"
+    },
+    "section": {
+      "type": "string"
+    },
+    "committeeName": {
+      "type": "string"
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "theme": {
+      "type": "string",
+      "deprecated": true
+    },
+    "layout": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "hero": {
+      "$ref": "#/$defs/imageAsset"
+    },
+    "contributors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/contributor"
+      }
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/contributor"
+      },
+      "deprecated": true
+    },
+    "publishedDate": {
+      "type": ["string", "null"],
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "blocks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/block"
+      }
+    }
+  },
+  "$defs": {
+    "contributor": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string"
+        },
+        "affiliation": {
+          "type": "string"
+        },
+        "showAsAuthor": {
+          "type": "boolean"
+        }
+      }
+    },
+    "imageAsset": {
+      "type": "object",
+      "required": ["src", "alt"],
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": ["image", "video"]
+        },
+        "alt": {
+          "type": "string"
+        },
+        "poster": {
+          "type": "string"
+        },
+        "caption": {
+          "type": "string"
+        },
+        "credit": {
+          "type": "string"
+        }
+      }
+    },
+    "headingBlock": {
+      "type": "object",
+      "required": ["type", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "heading"
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "paragraphBlock": {
+      "type": "object",
+      "required": ["type", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "paragraph"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "calloutBlock": {
+      "type": "object",
+      "required": ["type", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "callout"
+        },
+        "title": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "quoteBlock": {
+      "type": "object",
+      "required": ["type", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "quote"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attribution": {
+          "type": "string"
+        }
+      }
+    },
+    "chartBlock": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "chart"
+        },
+        "title": {
+          "type": "string"
+        },
+        "component": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        }
+      }
+    },
+    "imageBlock": {
+      "type": "object",
+      "required": ["type", "image"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "image"
+        },
+        "image": {
+          "$ref": "#/$defs/imageAsset"
+        },
+        "layout": {
+          "type": "string",
+          "enum": ["inline", "wide", "full"]
+        }
+      }
+    },
+    "block": {
+      "oneOf": [
+        { "$ref": "#/$defs/headingBlock" },
+        { "$ref": "#/$defs/paragraphBlock" },
+        { "$ref": "#/$defs/calloutBlock" },
+        { "$ref": "#/$defs/quoteBlock" },
+        { "$ref": "#/$defs/imageBlock" },
+        { "$ref": "#/$defs/chartBlock" }
+      ]
+    }
+  }
+}
