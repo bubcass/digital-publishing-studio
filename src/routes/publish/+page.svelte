@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { base } from '$app/paths';
   import publisherStyles from '$lib/publisher-react/index.css?inline';
 
   let mountTarget: HTMLDivElement | null = null;
@@ -35,7 +36,7 @@
         shadowRoot.append(styleElement, appHost);
 
         const root = createRoot(appHost);
-        root.render(React.createElement(PublisherApp));
+        root.render(React.createElement(PublisherApp, { appBase: base || '' }));
         cleanup = () => root.unmount();
         isReady = true;
       } catch (error) {

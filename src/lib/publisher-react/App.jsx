@@ -271,7 +271,7 @@ function getSelectedStructuredBlock(editor) {
   return null;
 }
 
-export default function App() {
+export default function App({ appBase = "" }) {
   const initialDatePublished = todayIsoDate();
   const initialSlug = buildDocumentSlug(
     "Untitled research document",
@@ -497,10 +497,9 @@ export default function App() {
 
     try {
       savePreviewArticle(storDocument);
-      const appBase = new URL("./", window.location.href);
       const previewPath = new URL(
-        "preview/",
-        appBase,
+        `${String(appBase).replace(/\/$/, "")}/preview/`,
+        window.location.origin,
       ).toString();
       window.open(previewPath, "_blank", "noopener");
 
