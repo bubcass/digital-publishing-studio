@@ -497,9 +497,10 @@ export default function App() {
 
     try {
       savePreviewArticle(storDocument);
+      const appBase = new URL("./", window.location.href);
       const previewPath = new URL(
-        `${import.meta.env.BASE_URL}preview/`,
-        window.location.origin,
+        "preview/",
+        appBase,
       ).toString();
       window.open(previewPath, "_blank", "noopener");
 
